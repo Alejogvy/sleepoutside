@@ -1,5 +1,6 @@
 https://trello.com/b/YBuq1kSL/activity-w01-setup-project
 
 https://67834ed0949e439fdb0be6eb--sleepoutside-byu.netlify.app/
+https://deploy-preview-2--sleepoutside-byu.netlify.app/
 
 Alejandro Villamar
