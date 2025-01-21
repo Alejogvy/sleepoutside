@@ -11,7 +11,7 @@ function updateCartCount() {
   }
 }
 
-const dataSource = new ProductData("tents");
+const dataSource = new ProductData("/json/tents.json");
 
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();  

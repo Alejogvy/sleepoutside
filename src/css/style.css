@@ -228,7 +228,7 @@ footer {
 .cart-count {
   position: absolute;
   top: 10px;
-  right: 36px;
+  right: 265px;
   background-color: red;
   color: white;
   font-size: 12px;
@@ -240,7 +240,7 @@ footer {
 .cart-count1 {
   position: absolute;
   top: 10px;
-  right: -345px;
+  right: -393px;
   background-color: red;
   color: white;
   font-size: 12px;
