@@ -10,39 +10,28 @@ function convertToJson(res) {
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    // Absolute Path (development only)
-    this.path = window.location.hostname === 'localhost' 
-      ? `/json/${this.category}.json` 
-      : `json/${this.category}.json`;
-    this.cachedData = null;
+    this.url = `/src/json/${category}.json`;
   }
 
   async getData() {
-    
-    if (this.cachedData) {
-      return this.cachedData;
-    }
-
     try {
-      
-      const response = await fetch(this.path);
+      console.log("Loading data from:", this.url);
+      const response = await fetch(this.url);
       if (!response.ok) {
-        throw new Error('Error al cargar los datos');
+        throw new Error("Error loading data");
       }
-      this.cachedData = await response.json();
-      return this.cachedData;
+      return await response.json();
     } catch (error) {
-      console.error('Error en getData:', error);
+      console.error("Error in getData:", error);
       return [];
     }
-  }  
+  }
 
-  async findProductById(id) {
+  async findProductById(productId) {
     const products = await this.getData();
-    console.log("Productos cargados:", products);
-    const product = products.find((item) => item.Id === id);
-    console.log("Producto encontrado:", product);
+    console.log("Products loaded:", products);
+    const product = products.find((p) => p.Id === productId);
+    console.log("Product found:", product);
     return product;
   }
-  
 }
