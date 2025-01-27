@@ -22,16 +22,21 @@ function addProductToCart(product) {
   console.log("New cart:", cart);
   localStorage.setItem("so-cart", JSON.stringify(cart));
   updateCartCount();
+  showAddedToCartNotification();
 }
 
 async function addToCartHandler(e) {
   console.log("Button clicked, dataset ID:", e.target.dataset.id);
   const productId = e.target.dataset.id;
-  const product = await dataSource.findProductById(productId);
-  if (product) {
-    addProductToCart(product);
-  } else {
-    console.error("Product not found with ID:", productId);
+  try {
+    const product = await dataSource.findProductById(productId);
+    if (product) {
+      addProductToCart(product);
+    } else {
+      console.error("Product not found with ID:", productId);
+    }
+  } catch (error) {
+    console.error("Error fetching product:", error);
   }
 }
 
@@ -55,4 +60,3 @@ function showAddedToCartNotification() {
     notification.remove();
   }, 2000);
 }
-

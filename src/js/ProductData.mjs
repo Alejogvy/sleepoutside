@@ -1,37 +1,31 @@
-function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    console.error(`Error fetching data: ${res.statusText}`);
-    throw new Error("Bad Response");
-  }
-}
+// Importa los datos directamente desde los archivos JSON
+import tentsData from '../json/tents.json';  // Asegúrate de que la ruta es correcta
 
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.url = `/src/json/${category}.json`;
+    // Establece los datos de acuerdo con la categoría
+    this.data = this.loadData(category);
   }
 
-  async getData() {
-    try {
-      console.log("Loading data from:", this.url);
-      const response = await fetch(this.url);
-      if (!response.ok) {
-        throw new Error("Error loading data");
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Error in getData:", error);
-      return [];
+  // Método para cargar los datos dependiendo de la categoría
+  loadData(category) {
+    switch (category) {
+      case 'tents':
+        return tentsData;
+      // Puedes agregar más casos aquí para otras categorías (como backpacks, sleeping-bags, etc.)
+      default:
+        return [];
     }
   }
 
-  async findProductById(productId) {
-    const products = await this.getData();
-    console.log("Products loaded:", products);
-    const product = products.find((p) => p.Id === productId);
-    console.log("Product found:", product);
-    return product;
+  // Método que devuelve los datos (ya no se usa fetch)
+  async getData() {
+    return this.data;
+  }
+
+  // Método para encontrar un producto por su ID
+  async findProductById(id) {
+    return this.data.find(product => product.Id === id);
   }
 }

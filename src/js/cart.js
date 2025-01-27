@@ -1,7 +1,7 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItems = Array.isArray(getLocalStorage("so-cart")) ? getLocalStorage("so-cart") : [];
   console.log("Cart content:", cartItems);
 
   const productListElement = document.querySelector(".product-list");
@@ -22,21 +22,21 @@ function renderCartContents() {
   const deleteButtons = productListElement.querySelectorAll(".cart-card__delete");
   deleteButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      const productId = e.target.dataset.id; 
+      const productId = e.target.dataset.id;
       removeProductFromCart(productId);
     });
   });
 }
 
 function removeProductFromCart(productId) {
-  let cart = getLocalStorage("so-cart") || [];
+  let cart = Array.isArray(getLocalStorage("so-cart")) ? getLocalStorage("so-cart") : [];
   cart = cart.filter((item) => item.Id !== productId);
   setLocalStorage("so-cart", cart);
   renderCartContents();
 }
 
 function cartItemTemplate(item) {
-  const color = item.Colors && item.Colors[0] ? item.Colors[0].ColorName : "N/A";
+  const color = item.Colors?.[0]?.ColorName || "N/A";
   const price = item.FinalPrice || "0.00";
 
   return `
