@@ -2,24 +2,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("registration-modal");
     const closeModal = document.getElementById("close-modal");
     const registerButton = document.getElementById("register-button");
-  
-    
-    if (!localStorage.getItem("hasSeenModal")) {
-      modal.classList.add("show");
-    }
-  
-    
+
+    // Show the modal every time the page loads
+    modal.style.display = "flex";
+
+    // Close the modal when clicking "Close"
     closeModal.addEventListener("click", () => {
-      modal.classList.remove("show");
-      localStorage.setItem("hasSeenModal", "true");
+        modal.style.display = "none";
     });
-  
-    
+
+    // Redirect to registration page when clicking "Register"
     registerButton.addEventListener("click", () => {
-      alert("Redirecting to registration page...");
-      modal.classList.remove("show");
-      localStorage.setItem("hasSeenModal", "true");
-      window.location.href = "register.html";
+        window.location.href = "register.html";
     });
-  });
-  
+});
